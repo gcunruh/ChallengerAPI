@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken', 
     'rest_auth',
     'rest_auth.registration',
-    'allauth',
     'oauth2_provider',
     'corsheaders',
     'api',
@@ -138,3 +137,26 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 SITE_ID = 1
+
+AUTH_USER_MODEL = 'api.User'
+
+AUTHENTICATION_BACKENDS = [
+    'api.auth.CustomAuthentication',
+
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+
+}
+
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'api.serializers.CustomLoginSerializer',
+}
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
